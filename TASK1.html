@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.calculator {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.calculator-display {
+    background-color: #222;
+    color: #fef3f3;
+    font-size: 2em;
+    padding: 20px;
+    text-align: right;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.btn {
+    background-color: #0eea41;
+    border: none;
+    padding: 20px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #d31616;
+}
+
+.btn-equal {
+    grid-column: span 2;
+    background-color: #b20914;
+    color: white;
+}
+
+.btn-equal:hover {
+    background-color: #010afc;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .calculator {
+        padding: 15px;
+    }
+
+    .calculator-display {
+        font-size: 1.5em;
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 15px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator {
+        padding: 10px;
+    }
+
+    .calculator-display {
+        font-size: 1.2em;
+        padding: 10px;
+    }
+
+    .btn {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .calculator-buttons {
+        gap: 5px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="calculator-display" id="display">0</div>
+        <div class="calculator-buttons">
+            <button class="btn" onclick="clearDisplay()">C</button>
+            <button class="btn" onclick="deleteLast()">DEL</button>
+            <button class="btn" onclick="appendCharacter('%')">%</button>
+            <button class="btn" onclick="appendCharacter('/')">/</button>
+            <button class="btn" onclick="appendCharacter('7')">7</button>
+            <button class="btn" onclick="appendCharacter('8')">8</button>
+            <button class="btn" onclick="appendCharacter('9')">9</button>
+            <button class="btn" onclick="appendCharacter('*')">*</button>
+            <button class="btn" onclick="appendCharacter('4')">4</button>
+            <button class="btn" onclick="appendCharacter('5')">5</button>
+            <button class="btn" onclick="appendCharacter('6')">6</button>
+            <button class="btn" onclick="appendCharacter('-')">-</button>
+            <button class="btn" onclick="appendCharacter('1')">1</button>
+            <button class="btn" onclick="appendCharacter('2')">2</button>
+            <button class="btn" onclick="appendCharacter('3')">3</button>
+            <button class="btn" onclick="appendCharacter('+')">+</button>
+            <button class="btn" onclick="appendCharacter('0')">0</button>
+            <button class="btn" onclick="appendCharacter('.')">.</button>
+            <button class="btn btn-equal" onclick="calculateResult()">=</button>
+        </div>
+    </div>
+    <script>
+let display = document.getElementById('display');
+
+function clearDisplay() {
+    display.innerText = '0';
+}
+
+function deleteLast() {
+    display.innerText = display.innerText.slice(0, -1) || '0';
+}
+
+function appendCharacter(char) {
+    if (display.innerText === '0' && !isNaN(char)) {
+        display.innerText = char;
+    } else {
+        display.innerText += char;
+    }
+}
+
+function calculateResult() {
+    try {
+        display.innerText = eval(display.innerText);
+    } catch (error) {
+        display.innerText = 'Error';
+    }
+}
+
+    </script>
+</body>
+</html>
